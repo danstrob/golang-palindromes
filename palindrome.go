@@ -39,7 +39,8 @@ func cleanString(str string) []string {
 	return words
 }
 
-// reverseString works by flipping the runes in a string
+// reverseString works by flipping the runes in a string, see:
+// http://stackoverflow.com/questions/1752414/how-to-reverse-a-string-in-go#10030772
 func reverseString(str string) string {
 	runes := []rune(str)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
@@ -60,12 +61,14 @@ func main() {
 
 	if len(palindromes) == 1 {
 		fmt.Println("I have found 1 palindrome in your text file. It is:", palindromes)
-	} else {
+	} else if len(palindromes) > 1 {
 		fmt.Printf("I have found %d palindromes in your text file. They are:\n", len(palindromes))
 		for i := 0; i < len(palindromes)-1; i++ {
 			fmt.Printf("%s, ", palindromes[i])
 		}
 
 		fmt.Printf("%s.\n", palindromes[len(palindromes)-1])
+	} else {
+		fmt.Println("Could not find palindromes in your text file.")
 	}
 }
