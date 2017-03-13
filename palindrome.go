@@ -4,12 +4,18 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sort"
 	"strings"
 	"unicode"
 )
 
 // readTextfile reads a file given as a CL argument and returns its contents as a string
 func readTextfile() string {
+	if len(os.Args) < 2 {
+		fmt.Println("Please specify a text file after the program name.")
+		os.Exit(1)
+	}
+
 	filename := string(os.Args[1])
 	contents, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -60,9 +66,11 @@ func main() {
 	}
 
 	if len(palindromes) == 1 {
-		fmt.Println("I have found 1 palindrome in your text file. It is:", palindromes)
+		fmt.Println("I have found 1 palindrome in your text file. It is the word:", palindromes[0])
 	} else if len(palindromes) > 1 {
 		fmt.Printf("I have found %d palindromes in your text file. They are:\n", len(palindromes))
+
+		sort.Strings(palindromes)
 		for i := 0; i < len(palindromes)-1; i++ {
 			fmt.Printf("%s, ", palindromes[i])
 		}
